@@ -1,0 +1,44 @@
+managed implementation in class zbp_ap_i_customer unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZAP_I_CUSTOMER
+persistent table zap_customer
+draft table zap_customer_d
+lock master total etag ChangedAt
+authorization master ( instance )
+etag master ChangedAt
+early numbering
+{
+
+  create;
+  update;
+  delete;
+
+  field ( readonly )
+    CustomerId,
+    ChangedAt,
+    ChangedBy;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+
+  draft determine action Prepare;
+
+  mapping for zap_customer corresponding
+  {
+    CustomerId      = customer_id;
+    CustomerName    = customer_name;
+    Email           = email;
+    Phone           = phone;
+    City            = city;
+    Country         = country;
+    PostalCode      = postal_code;
+    Status          = status;
+    ChangedAt   = lastchangedat;
+    ChangedBy   = localchangedby;
+  }
+
+}

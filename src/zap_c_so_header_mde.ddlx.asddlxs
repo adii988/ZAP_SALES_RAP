@@ -1,0 +1,169 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+  typeName       : 'Sales Order',
+  typeNamePlural : 'Sales Orders',
+  title          : { type: #STANDARD, value: 'SalesOrderId' },
+  description    : { type: #STANDARD, value: 'CustomerId' }
+}
+
+@UI.presentationVariant: [{
+  sortOrder     : [{ by: 'SalesOrderId', direction: #DESC }],
+  visualizations: [{ type: #AS_LINEITEM }]
+}]
+
+annotate entity ZAP_C_SO_HEADER with
+{
+
+  @UI.facet: [
+
+    {
+      id       : 'GeneralInfo',
+      type     : #IDENTIFICATION_REFERENCE,
+      label    : 'General Information',
+      position : 10
+    },
+
+    {
+      id              : 'OrderInfo',
+      type            : #FIELDGROUP_REFERENCE,
+      targetQualifier : 'OrderInfo',
+      label           : 'Order Details',
+      position        : 20
+    },
+
+    {
+      id              : 'AmountInfo',
+      type            : #FIELDGROUP_REFERENCE,
+      targetQualifier : 'AmountInfo',
+      label           : 'Amount Details',
+      position        : 30
+    },
+
+    {
+      id            : 'Items',
+      type          : #LINEITEM_REFERENCE,
+      targetElement : '_Items',
+      label         : 'Sales Order Items',
+      position      : 40
+    }
+
+  ]
+
+
+  @UI.lineItem: [{position   : 10,importance : #HIGH,label      : 'Sales Order ID'}]
+  @UI.identification: [{position : 10,label    : 'Sales Order ID'}]
+  @UI.selectionField: [{ position: 10 }]
+  SalesOrderId;
+
+
+  @UI.lineItem:       [{ position: 20, importance: #HIGH }]
+  @UI.identification: [{ position: 20,label: 'Customer' }]
+  @UI.selectionField: [{ position: 20 }]
+  CustomerId;
+
+
+  @UI.lineItem:       [{ position: 30 }]
+  @UI.identification: [{ position: 30, label:'Order Date' }]
+  @UI.selectionField: [{ position: 30 }]
+  @UI.fieldGroup:     [{ qualifier: 'OrderInfo', position: 10 }]
+  OrderDate;
+
+
+  @UI.lineItem:       [{ position: 40 }]
+  @UI.identification: [{ position: 40,label: 'Delivery Date' }]
+  @UI.fieldGroup:     [{ qualifier: 'OrderInfo', position: 20 }]
+  DeliveryDate;
+
+
+  @UI.lineItem:       [{ position: 50 }]
+  @UI.identification: [{ position: 50,label: 'Currency' }]
+  @UI.fieldGroup:     [{ qualifier: 'OrderInfo', position: 30 }]
+  Currency;
+
+
+  @UI.lineItem: [
+  { position: 60, importance: #HIGH },
+
+  { type: #FOR_ACTION,
+    dataAction: 'Approve',
+    label: 'Approve' },
+
+  { type: #FOR_ACTION,
+    dataAction: 'Reject',
+    label: 'Reject' },
+
+  { type: #FOR_ACTION,
+    dataAction: 'Cancel',
+    label: 'Cancel' },
+
+  { type: #FOR_ACTION,
+    dataAction: 'Dispatch',
+    label: 'Dispatch' },
+
+  { type: #FOR_ACTION,
+    dataAction: 'GenerateInvoice',
+    label: 'Generate Invoice' },
+
+  { type: #FOR_ACTION,
+    dataAction: 'RecordPayment',
+    label: 'Record Payment' }
+  ]
+
+  @UI.identification: [
+    { position: 60,label:'Status' },
+
+    { type: #FOR_ACTION,
+      dataAction: 'Approve',
+      label: 'Approve' },
+
+    { type: #FOR_ACTION,
+      dataAction: 'Reject',
+      label: 'Reject' },
+
+    { type: #FOR_ACTION,
+      dataAction: 'Cancel',
+      label: 'Cancel' },
+
+    { type: #FOR_ACTION,
+      dataAction: 'Dispatch',
+      label: 'Dispatch' },
+
+    { type: #FOR_ACTION,
+      dataAction: 'GenerateInvoice',
+      label: 'Generate Invoice' },
+
+    { type: #FOR_ACTION,
+      dataAction: 'RecordPayment',
+      label: 'Record Payment' }
+  ]
+
+  @UI.selectionField: [{ position: 40 }]
+  Status;
+
+
+  @UI.lineItem:       [{ position: 70 }]
+  @UI.identification: [{ position: 71,label:'Net Amount' }]
+  @UI.fieldGroup:     [{ qualifier: 'AmountInfo', position: 10 }]
+  NetAmount;
+
+
+  @UI.lineItem:       [{ position: 80, importance: #HIGH }]
+  @UI.identification: [{ position: 80,label:'Total Amount' }]
+  @UI.fieldGroup:     [{ qualifier: 'AmountInfo', position: 20 }]
+  TotalAmount;
+
+  @UI.lineItem:       [{ position: 90 }]
+  @UI.identification: [{ position: 90, label:'Paid Amount' }]
+  @UI.fieldGroup:     [{ qualifier: 'AmountInfo', position: 30 }]
+  PaidAmount;
+
+
+  @UI.lineItem:       [{ position: 100 }]
+  @UI.identification: [{ position: 100, label:'Balance Amount' }]
+  @UI.fieldGroup:     [{ qualifier: 'AmountInfo', position: 40 }]
+  BalanceAmount;
+
+
+
+}

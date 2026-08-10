@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZCM_AP_PRODUCT</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Messages for Product App</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_AP_PRODUCT</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Unit Price must be greater than zero</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_AP_PRODUCT</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Stock Quantity cannot be negative</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_AP_PRODUCT</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Product already exists</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_AP_PRODUCT</ARBGB>
+     <MSGNR>004</MSGNR>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

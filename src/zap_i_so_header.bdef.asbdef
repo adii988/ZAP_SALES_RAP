@@ -1,0 +1,250 @@
+managed implementation in class zbp_ap_i_so_header unique;
+strict ( 2 ); with draft;
+
+define behavior for ZAP_I_SO_HEADER
+persistent table zap_so_header
+draft table zap_so_header_d
+lock master total etag ChangedAt
+authorization master ( instance )
+etag master ChangedAt
+early numbering
+{
+
+  create ( authorization : global );
+  update;
+  delete;
+
+  field ( readonly )
+  TotalAmount,
+  NetAmount,
+  Status,
+  PaidAmount,
+  BalanceAmount,
+  ChangedAt,
+  ChangedBy;
+
+  field ( features : instance ) SalesOrderId;
+
+  association _Items { create; with draft; }
+
+  /*------------------------------------
+   Business Actions
+   ------------------------------------*/
+
+  //  action Approve;
+  //  action Reject;
+  //  action Cancel;
+  //  action Dispatch;
+  //  action GenerateInvoice;
+  //  action RecordPayment;
+  action ( features : instance ) Approve;
+  action ( features : instance ) Reject;
+  action ( features : instance ) Cancel;
+  action ( features : instance ) Dispatch;
+  action ( features : instance ) GenerateInvoice;
+  action ( features : instance ) RecordPayment;
+
+  /*------------------------------------
+   Draft Actions
+   ------------------------------------*/
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+
+  draft determine action Prepare
+  {
+    validation ValidateDeliveryDate;
+    validation ZAP_I_SO_ITEM~ValidateQuantity;
+    validation ZAP_I_SO_ITEM~ValidateStock;
+
+
+  }
+
+  /*------------------------------------
+   Determinations
+   ------------------------------------*/
+
+  //  determination CalculateTotalAmount
+  //    on modify { create; update; }
+
+
+
+  determination CalculateGST
+  on modify { field NetAmount; }
+
+
+  determination SetInitialStatus
+  on modify { create; }
+
+  determination AutoApproveStatus
+  on modify { field NetAmount; }
+
+
+  /*------------------------------------
+   Validations
+   ------------------------------------*/
+
+  //  validation ValidateCustomer
+  //    on save { create; update; }
+
+  validation ValidateDeliveryDate
+  on save { create; update; }
+
+
+  /*------------------------------------
+   Side Effects
+   ------------------------------------*/
+
+  side effects
+  {
+    field NetAmount
+    affects field TotalAmount;
+  }
+
+
+  /*_______________________________________
+
+   Mapping
+   _________________________________________*/
+
+  mapping for zap_so_header corresponding
+    {
+      SalesOrderId  = sales_order_id;
+      CustomerId    = customer_id;
+      OrderDate     = order_date;
+      DeliveryDate  = delivery_date;
+      Currency      = currency;
+      TotalAmount   = total_amount;
+      NetAmount     = net_amount;
+      Status        = status;
+      PaidAmount    = paid_amount;
+      BalanceAmount = balance_amount;
+      ChangedAt     = lastchangedat;
+      ChangedBy     = localchangedby;
+    }
+
+
+  // Satrt the Child (Item)
+
+}
+
+define behavior for ZAP_I_SO_ITEM
+persistent table zap_so_item
+draft table zap_so_item_d
+lock dependent by _SalesOrder
+authorization dependent by _SalesOrder
+etag master ChangedAt
+
+
+{
+
+
+  update;
+  delete;
+
+
+  field ( readonly, numbering : managed )
+  ItemUuid;
+
+  field ( readonly )
+  SalesOrderId,
+
+  ChangedAt,
+  ChangedBy;
+
+  association _SalesOrder { with draft; }
+
+  /*------------------------------------
+   Determinations
+   ------------------------------------*/
+
+  //  determination CalculateLineAmount
+  //    on modify { create; update; }
+
+  //determination CalculateLineAmount
+  //  on modify { create; field Quantity, UnitPrice; }
+
+  determination GetProductPrice
+  on modify { field ProductId; }
+
+
+  determination CalculateLineAmount
+  on modify { create; update; }
+
+
+
+
+  determination UpdateHeaderTotal
+  on modify { field LineAmount; }
+
+  determination UpdateHeaderTotalOnDelete
+  on modify { delete; }
+
+  determination AdjustStock
+  on save { create; update; delete; }
+
+
+
+  /*------------------------------------
+   Validations
+   ------------------------------------*/
+
+  //  validation ValidateProduct
+  //    on save { create; update; }
+
+
+  validation ValidateQuantity
+  on save { create; update; }
+
+  validation ValidateStock
+  on save { create; update; }
+
+
+
+  /*------------------------------------
+   Side Effects
+   ------------------------------------*/
+
+  side effects
+  {
+    field ProductId
+    affects field UnitPrice;
+
+    field Quantity
+    affects field LineAmount;
+
+    field UnitPrice
+    affects field LineAmount;
+
+    field LineAmount
+    affects field _SalesOrder.NetAmount,
+        field _SalesOrder.TotalAmount;
+  }
+
+
+
+
+
+
+  /*------------------------------------
+   Mapping
+   ------------------------------------*/
+
+  mapping for zap_so_item corresponding
+    {
+      SalesOrderId = sales_order_id;
+      ItemUuid     = item_uuid;
+      ItemNo       = item_no;
+      ProductId    = product_id;
+      Quantity     = quantity;
+      UnitPrice    = unit_price;
+      LineAmount   = line_amount;
+      ChangedAt    = lastchangedat;
+      ChangedBy    = localchangedby;
+    }
+
+
+
+}

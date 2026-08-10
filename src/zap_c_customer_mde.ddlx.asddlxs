@@ -1,0 +1,166 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+  typeName       : 'Customer',
+  typeNamePlural : 'Customers',
+  title          : { type: #STANDARD, value: 'CustomerName' },
+  description    : { type: #STANDARD, value: 'CustomerId' }
+}
+
+@UI.presentationVariant: [{
+  sortOrder      : [{ by: 'CustomerId', direction: #ASC }],
+  visualizations : [{ type: #AS_LINEITEM }]
+}]
+
+annotate entity ZAP_C_CUSTOMER with
+{
+
+  @UI.facet: [
+    {
+      id       : 'GeneralInfo',
+      type     : #IDENTIFICATION_REFERENCE,
+      label    : 'General Information',
+      position : 10
+    },
+    {
+      id              : 'ContactInfo',
+      type             : #FIELDGROUP_REFERENCE,
+      targetQualifier  : 'ContactInfo',
+      label            : 'Contact Information',
+      position          : 20
+    },
+    {
+      id              : 'AddressInfo',
+      type             : #FIELDGROUP_REFERENCE,
+      targetQualifier  : 'AddressInfo',
+      label            : 'Address Information',
+      position          : 30
+    }
+  ]
+
+  /*--------------------------------------------------*
+   * General Information
+   *--------------------------------------------------*/
+
+  @UI.lineItem: [
+    { position: 10, importance: #HIGH, label: 'Customer ID' }
+  ]
+  @UI.identification: [
+    { position: 10, label: 'Customer ID' }
+  ]
+  @UI.selectionField: [
+    { position: 10 }
+  ]
+  CustomerId;
+
+
+  @UI.lineItem: [
+    { position: 20, importance: #HIGH, label: 'Customer Name' }
+  ]
+  @UI.identification: [
+    { position: 20, label: 'Customer Name' }
+  ]
+  @UI.selectionField: [
+    { position: 20 }
+  ]
+  CustomerName;
+
+
+  @UI.lineItem: [
+    { position: 30, label: 'Email' }
+  ]
+  @UI.identification: [
+    { position: 30, label: 'Email' }
+  ]
+  @UI.fieldGroup: [
+    { qualifier: 'ContactInfo', position: 10 }
+  ]
+  Email;
+
+
+  @UI.lineItem: [
+    { position: 40, label: 'Phone' }
+  ]
+  @UI.identification: [
+    { position: 40, label: 'Phone' }
+  ]
+  @UI.fieldGroup: [
+    { qualifier: 'ContactInfo', position: 20 }
+  ]
+  Phone;
+
+
+  /*--------------------------------------------------*
+   * Address Information
+   *--------------------------------------------------*/
+
+  @UI.lineItem: [
+    { position: 50, label: 'City' }
+  ]
+  @UI.identification: [
+    { position: 50, label: 'City' }
+  ]
+  @UI.selectionField: [
+    { position: 30 }
+  ]
+  @UI.fieldGroup: [
+    { qualifier: 'AddressInfo', position: 10 }
+  ]
+  City;
+
+
+  @UI.lineItem: [
+    { position: 60, label: 'State' }
+  ]
+  @UI.identification: [
+    { position: 60, label: 'State' }
+  ]
+  @UI.fieldGroup: [
+    { qualifier: 'AddressInfo', position: 20 }
+  ]
+  State;
+
+
+  @UI.lineItem: [
+    { position: 70, label: 'Country' }
+  ]
+  @UI.identification: [
+    { position: 70, label: 'Country' }
+  ]
+  @UI.fieldGroup: [
+    { qualifier: 'AddressInfo', position: 30 }
+  ]
+  Country;
+
+
+  @UI.lineItem: [
+    { position: 80, label: 'Postal Code' }
+  ]
+  @UI.identification: [
+    { position: 80, label: 'Postal Code' }
+  ]
+  @UI.fieldGroup: [
+    { qualifier: 'AddressInfo', position: 40 }
+  ]
+  PostalCode;
+
+
+  /*--------------------------------------------------*
+   * Status
+   *--------------------------------------------------*/
+
+  @UI.lineItem: [
+    { position: 90, label: 'Status' }
+  ]
+  @UI.identification: [
+    { position: 90, label: 'Status' }
+  ]
+  Status;
+
+
+  /*--------------------------------------------------*
+   * Technical Fields
+   *--------------------------------------------------*/
+
+
+}

@@ -1,0 +1,150 @@
+//@Metadata.layer: #CORE
+//
+//@UI.headerInfo: {
+//  typeName       : 'Product',
+//  typeNamePlural : 'Products',
+//  title          : { type: #STANDARD, value: 'ProductName' },
+//  description    : { type: #STANDARD, value: 'Category' }
+//}
+//
+//@UI.presentationVariant: [{
+//  sortOrder      : [{ by: 'ProductId', direction: #ASC }],
+//  visualizations : [{ type: #AS_LINEITEM }]
+//}]
+//
+//annotate entity ZAP_C_PRODUCT with
+//{
+//
+//  @UI.facet: [
+//    {
+//      id       : 'GeneralInfo',
+//      type     : #IDENTIFICATION_REFERENCE,
+//      label    : 'General Information',
+//      position : 10
+//    },
+//    {
+//      id              : 'PriceInfo',
+//      type            : #FIELDGROUP_REFERENCE,
+//      targetQualifier : 'PriceInfo',
+//      label           : 'Price Information',
+//      position        : 20
+//    },
+//    {
+//      id              : 'StockInfo',
+//      type            : #FIELDGROUP_REFERENCE,
+//      targetQualifier : 'StockInfo',
+//      label           : 'Stock Information',
+//      position        : 30
+//    }
+//  ]
+//
+//  @UI.lineItem:       [{ position: 10, importance: #HIGH }]
+//  @UI.identification: [{ position: 10, label: 'Product ID' }]
+//  @UI.selectionField: [{ position: 10 }]
+//  ProductId;
+//
+//  @UI.lineItem:       [{ position: 15, importance: #HIGH }]
+//  @UI.identification: [{ position: 15, label: 'Product Name' }]
+//  @UI.selectionField: [{ position: 15 }]
+//  ProductName;
+//
+//  @UI.lineItem:       [{ position: 30 }]
+//  @UI.identification: [{ position: 30, label: 'Category' }]
+//  @UI.selectionField: [{ position: 30 }]
+//  Category;
+//
+//  @UI.lineItem:       [{ position: 40 }]
+//  @UI.identification: [{ position: 40, label: 'Brand' }]
+//  Brand;
+//
+//  @UI.lineItem:       [{ position: 50 }]
+//  @UI.identification: [{ position: 50, label: 'Unit Price' }]
+//  @UI.fieldGroup:     [{ qualifier: 'PriceInfo', position: 10 }]
+//  UnitPrice;
+//
+//  @UI.lineItem:       [{ position: 60 }]
+//  @UI.identification: [{ position: 60, label: 'Currency' }]
+//  @UI.fieldGroup:     [{ qualifier: 'PriceInfo', position: 20 }]
+//  Currency;
+//
+//  @UI.lineItem:       [{ position: 70, importance: #HIGH }]
+//  @UI.identification: [{ position: 70, label: 'Available Stock' }]
+//  @UI.fieldGroup:     [{ qualifier: 'StockInfo', position: 10 }]
+//  StockQty;
+//
+//}
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+  typeName       : 'Product',
+  typeNamePlural : 'Products',
+  title          : { type: #STANDARD, value: 'ProductName' },
+  description    : { type: #STANDARD, value: 'Category' }
+}
+
+@UI.presentationVariant: [{
+  sortOrder      : [{ by: 'ProductId', direction: #ASC }],
+  visualizations : [{ type: #AS_LINEITEM }]
+}]
+
+annotate entity ZAP_C_PRODUCT with
+{
+
+  @UI.facet: [
+    {
+      id       : 'GeneralInfo',
+      type     : #IDENTIFICATION_REFERENCE,
+      label    : 'General Information',
+      position : 10
+    },
+    {
+      id              : 'PriceInfo',
+      type            : #FIELDGROUP_REFERENCE,
+      targetQualifier : 'PriceInfo',
+      label           : 'Price Information',
+      position        : 20
+    },
+    {
+      id              : 'StockInfo',
+      type            : #FIELDGROUP_REFERENCE,
+      targetQualifier : 'StockInfo',
+      label           : 'Stock Information',
+      position        : 30
+    }
+  ]
+
+  @UI.lineItem:       [{ position: 10, importance: #HIGH, label: 'Product ID' }]
+  @UI.identification: [{ position: 10, label: 'Product ID' }]
+  @UI.selectionField: [{ position: 10 }]
+  ProductId;
+
+  @UI.lineItem:       [{ position: 15, importance: #HIGH, label: 'Product Name' }]
+  @UI.identification: [{ position: 15, label: 'Product Name' }]
+  @UI.selectionField: [{ position: 15 }]
+  ProductName;
+
+  @UI.lineItem:       [{ position: 30, label: 'Category' }]
+  @UI.identification: [{ position: 30, label: 'Category' }]
+  @UI.selectionField: [{ position: 30 }]
+  Category;
+
+  @UI.lineItem:       [{ position: 40, label: 'Brand' }]
+  @UI.identification: [{ position: 40, label: 'Brand' }]
+  Brand;
+
+  @UI.lineItem:       [{ position: 50, label: 'Unit Price' }]
+  @UI.identification: [{ position: 50, label: 'Unit Price' }]
+  @UI.fieldGroup:     [{ qualifier: 'PriceInfo', position: 10 }]
+  UnitPrice;
+
+  @UI.lineItem:       [{ position: 60, label: 'Currency' }]
+  @UI.identification: [{ position: 60, label: 'Currency' }]
+  @UI.fieldGroup:     [{ qualifier: 'PriceInfo', position: 20 }]
+  Currency;
+
+  @UI.lineItem:       [{ position: 70, importance: #HIGH, label: 'Available Stock' }]
+  @UI.identification: [{ position: 70, label: 'Available Stock' }]
+  @UI.fieldGroup:     [{ qualifier: 'StockInfo', position: 10 }]
+  StockQty;
+
+}

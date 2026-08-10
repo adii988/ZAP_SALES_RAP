@@ -1,0 +1,7 @@
+@EndUserText.label: 'Sales Order Service Definition'
+define service ZAP_UI_SO_SERVICE {
+  expose ZAP_C_SO_HEADER as Sales_Header;
+  expose ZAP_C_SO_ITEM   as Item;
+  expose ZAP_C_PRODUCT   as Product;
+  expose ZAP_C_CUSTOMER  as Customer;
+}

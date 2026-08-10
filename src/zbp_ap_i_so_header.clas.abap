@@ -1,0 +1,5 @@
+CLASS zbp_ap_i_so_header DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zap_i_so_header.
+ENDCLASS.
+
+CLASS zbp_ap_i_so_header IMPLEMENTATION.
+ENDCLASS.
